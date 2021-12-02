@@ -1,21 +1,21 @@
-# KV
+# Overview
 
-**TODO: Add description**
+This is a sorting algorithm written in the Elixir programming language. 
 
-## Installation
+I had never written anything in a pure functional programming language before, so I decided to give it a try and I wrote this. 
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `kv` to your list of dependencies in `mix.exs`:
+[Software Demo Video](https://youtu.be/oEWmU0pKdkA)
 
-```elixir
-def deps do
-  [
-    {:kv, "~> 0.1.0"}
-  ]
-end
-```
+# Development Environment
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/kv](https://hexdocs.pm/kv).
+I used the Elixir programming language to write this. It is run using mix in the erlang virtual environment.
 
+# Useful Websites
+
+* [Documentation](https://elixir-lang.org/)
+
+# Future Work
+
+* Finish writing test cases for each function (love Elixir's built in testing tools)
+* Finish the algorithm so that it is fully functional in ALL cases
+* Write a program which is multithreaded next
