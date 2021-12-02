@@ -1,0 +1,2 @@
+mix new *folder name* --module *module name* /** creates a new elixir project **/
+iex -S mix

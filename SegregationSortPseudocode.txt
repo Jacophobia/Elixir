@@ -1,0 +1,67 @@
+segregationSort(array)
+    // Identify the beginning and ending of the array you are working with.
+    beginning <-- 0
+    end <-- array.length() - 1
+
+    sortArray(array, beginning, end)
+
+sortArray(array, beginning, end)
+    // Select a midpoint/pivot within the array (doesn't really matter where)
+    pivot <-- (end + beginning) // 2
+    start <-- beginning
+    finish <-- end
+
+    // (2)
+
+    WHILE beginning < end
+        // One by one, compare values starting at the beginning and moving toward 
+        //  the end with the pivot. As soon as a value is larger than or equal to 
+        //  the pivot, stop.
+        WHILE array[beginning] < array[pivot] AND beginning < end
+            beginning <-- beginning + 1
+
+        // One by one, compare values starting at the end and moving toward the 
+        //  beginning with the pivot. As soon as a value is smaller than the pivot,
+        //  stop.
+        WHILE array[end] >= array[pivot] AND beginning < end
+            end <-- end - 1
+
+        // Swap the two points with eachother.
+        array[beginning], array[end] <-- array[end], array[beginning]
+
+        // If the pivot was swapped, keep track of where it was swapped to.
+        IF pivot == end
+            pivot <-- beginning
+        ELSE IF pivot == beginning
+            pivot <-- end
+
+    // Swap the pivot with the point.
+    array[beginning], array[pivot] <-- array[pivot], array[beginning]
+
+    // Reassign the pivot to its new location
+    pivot <-- beginning
+
+    // Start this process over again with all values below and above the 
+    //  pivot (unless there are no values above or below).
+    IF pivot > start
+        sortArray(array, start, pivot - 1)
+    IF pivot < finish
+        sortArray(array, pivot + 1, finish)
+
+getArray()
+    array <-- new array
+    WHILE true
+        PROMPT user to enter a value or to enter 'q' if they are ready to compare
+        GET nextItem
+        IF nextItem == 'q' OR nextItem == 'Q'
+            RETURN array
+        array.push_back(nextItem)
+
+
+displayArray(array)
+    PUT array
+
+main()
+    array <-- getArray()
+    segregationSort(array)
+    displayArray(array)
