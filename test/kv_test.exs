@@ -36,7 +36,7 @@ defmodule KVTest do
   end
 
   test "segregate array" do
-    assert KV.segregateArray([2,3,4,2], 1, 0, 3) == {2, 2, [2,2,3,4]}
+    assert KV.segregateArray([2,3,4,2], 1, 0, 3) == {3, 2, [2,2,4,3]}
   end
 
   test "full sort package" do
@@ -45,5 +45,26 @@ defmodule KVTest do
     assert KV.sort([2,3,4,2]) == [2,2,3,4]
     assert KV.sort([1,3,3,1]) == [1,1,3,3]
     assert KV.sort([2,4,4,3]) == [2,3,4,4]
+  end
+
+  def stressTest(count, range) do
+    array = KV.getRandomList(range, 1..range)
+    trusted_array = Enum.sort(array)
+    our_array = KV.sort(array)
+    cond do
+      our_array != trusted_array ->
+        IO.inspect("An Error Has Occurred:")
+        IO.inspect(trusted_array, label: "Sorted Array")
+        IO.inspect(array, label: "Original Array")
+        IO.inspect(our_array, label: "Our Array")
+        false
+      count > 0 -> stressTest(count - 1, range)
+      true -> true
+    end
+  end
+
+  @tag timeout: :infinity
+  test "stress test" do
+    assert stressTest(1, 10000)
   end
 end

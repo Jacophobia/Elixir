@@ -75,11 +75,11 @@ defmodule KV do
     segregatedArray = segregateArray(array, ar_pivot, ar_beg, ar_end)
 
     segregated_pivot = elem(segregatedArray, 0)
-    segregated_beg = elem(segregatedArray, 1)
+    i_convergence = elem(segregatedArray, 1)
     segregated_array = elem(segregatedArray, 2)
 
-    new_array = swapElements(segregated_array, segregated_beg, segregated_pivot)
-    new_pivot = segregated_beg
+    new_array = swapElements(segregated_array, i_convergence, segregated_pivot)
+    new_pivot = i_convergence
 
     cond do
       new_pivot > start and new_pivot < finish -> segregationSort(new_array, start, new_pivot - 1) ++ [Enum.at(new_array, new_pivot)] ++ segregationSort(new_array, new_pivot + 1, finish)
@@ -118,14 +118,15 @@ defmodule KV do
     array = getRandomList(range, 1..range)
     trusted_array = Enum.sort(array)
     our_array = sort(array)
-    if our_array != trusted_array do
-      IO.inspect("An Error Has Occurred:")
-      IO.inspect(trusted_array, label: "Sorted Array")
-      IO.inspect(array, label: "Original Array")
-      IO.inspect(our_array, label: "Our Array")
-    end
-    if count > 0 do
-      main(count - 1, range)
+    cond do
+      our_array != trusted_array ->
+        IO.inspect("An Error Has Occurred:")
+        IO.inspect(trusted_array, label: "Sorted Array")
+        IO.inspect(array, label: "Original Array")
+        IO.inspect(our_array, label: "Our Array")
+        false
+      count > 0 -> main(count - 1, range)
+      true -> true
     end
   end
 end
