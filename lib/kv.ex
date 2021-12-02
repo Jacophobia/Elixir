@@ -13,10 +13,8 @@ defmodule KV do
   @spec findIDown(list(), integer(), integer(), integer()) :: integer()
   def findIDown(array, ar_pivot, ar_beg, ar_end) do
     if Enum.at(array, ar_end) >= Enum.at(array, ar_pivot) and ar_beg < ar_end do
-      IO.puts "Lets do it again " <> to_string(ar_end)
-      findIUp(array, ar_pivot, ar_beg, ar_end - 1)
+      findIDown(array, ar_pivot, ar_beg, ar_end - 1)
     else
-      IO.puts(:stderr, "Okay now we're done")
       ar_end
     end
   end
@@ -87,7 +85,7 @@ defmodule KV do
       new_pivot > start and new_pivot < finish -> segregationSort(new_array, start, new_pivot - 1) ++ [Enum.at(new_array, new_pivot)] ++ segregationSort(new_array, new_pivot + 1, finish)
       new_pivot > start -> segregationSort(new_array, start, new_pivot - 1) ++ [Enum.at(new_array, new_pivot)]
       new_pivot < finish -> [Enum.at(new_array, new_pivot)] ++ segregationSort(new_array, new_pivot + 1, finish)
-      true -> new_array
+      true -> [Enum.at(new_array, new_pivot)]
     end
 
     #     IF ar_pivot > start
