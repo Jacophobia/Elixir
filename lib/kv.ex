@@ -54,7 +54,7 @@ defmodule KV do
   def segregateArray(array, ar_pivot, ar_beg, ar_end) do
     if ar_beg < ar_end do
       i_up = findIUp(array, ar_pivot, ar_beg, ar_end)
-      i_down = findIDown(array, ar_pivot, ar_beg, ar_end)
+      i_down = findIDown(array, ar_pivot, i_up, ar_end)
 
       swapped_array = swapElements(array, i_up, i_down)
 
@@ -87,12 +87,6 @@ defmodule KV do
       new_pivot < finish -> [Enum.at(new_array, new_pivot)] ++ segregationSort(new_array, new_pivot + 1, finish)
       true -> [Enum.at(new_array, new_pivot)]
     end
-
-    #     IF ar_pivot > start
-    #         sortArray(array, start, ar_pivot - 1)
-    #     IF ar_pivot < finish
-    #         sortArray(array, ar_pivot + 1, finish)
-
   end
 
 
@@ -111,9 +105,27 @@ defmodule KV do
   end
 
 
-  def main do
-    sortedArray = sort([9, 8, 7, 6, 5, 4, 3, 2, 1])
-    IO.puts(sortedArray)
-    sortedArray
+  def getRandomList(num_elements, enumerable) do
+    if num_elements > 0 do
+      [Enum.random(enumerable)] ++ getRandomList(num_elements - 1, enumerable)
+    else
+      []
+    end
+  end
+
+
+  def main(count, range) do
+    array = getRandomList(range, 1..range)
+    trusted_array = Enum.sort(array)
+    our_array = sort(array)
+    if our_array != trusted_array do
+      IO.inspect("An Error Has Occurred:")
+      IO.inspect(trusted_array, label: "Sorted Array")
+      IO.inspect(array, label: "Original Array")
+      IO.inspect(our_array, label: "Our Array")
+    end
+    if count > 0 do
+      main(count - 1, range)
+    end
   end
 end
